@@ -1,0 +1,7 @@
+/* index.css에서 바디에 높이 100프로를 하더라도 기존의 app.css에서 더 상위 선택자에 높이를 지정하면 해당 스타일이 적용된다*/
+html,
+body,
+#root,
+#root > div {
+  height: 100%;
+}
