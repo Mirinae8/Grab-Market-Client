@@ -4,11 +4,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    {/* 브라우저 라우터가 app을 감싸고 있어야 그 안에서 자식들이 자유롭게 페이지 이동이 가능 */}
+    {/* 리액트돔에 브라우저 라우터를 Wraping 해줌 */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
