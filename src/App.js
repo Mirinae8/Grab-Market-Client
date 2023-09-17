@@ -14,7 +14,7 @@ function App() {
         <Route exact={true} path="/">
           <MainPageComponent />
         </Route>
-        <Route exact={true} path="/product">
+        <Route exact={true} path="/products/:id">
           <ProductPage />
         </Route>
         <Route exact={true} path="/upload">

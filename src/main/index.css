@@ -18,7 +18,9 @@
 }
 
 #body {
-  height: 100%;
+  /* %는 부모기준 상위 선택자가 많아지면 자연스럽게 작아진다 */
+  /* vh는 윈도우창 기준 100vh가 윈도우창 크기 */
+  height: 100vh;
   width: 1024px;
   /* flex의 justify를 사용하지 않고도 가능 */
   /* 부모로부터 가운데 정렬 */
@@ -110,4 +112,12 @@
 .product-avatar {
   /* 보통 width만 설정하고 height는 가로세로 비율에 따라 알아서 조절됨 */
   width: 24px;
+}
+
+/* 리액트의 link를 사용하면 html 상에서 <a>태그로 변경되고 텍스트에 색상이 변경되고 밑줄이 생김 */
+/* 이를 방지하기위한 스타일 지정 */
+.product-link {
+  color: inherit;
+  /* 밑줄 사라짐 */
+  text-decoration: none;
 }

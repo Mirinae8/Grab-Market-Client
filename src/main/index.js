@@ -2,6 +2,7 @@
 import "./index.css";
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function MainPage() {
   // state 사용위해 products는 배열이라 파라미터로 빈배열을 넣음
@@ -40,17 +41,24 @@ function MainPage() {
           {products.map(function (product, index) {
             return (
               <div class="product-card">
-                <div>
-                  <img class="product-image" src={product.imageUrl} />
-                </div>
-                <div class="product-contents">
-                  <span class="product-name">{product.name}</span>
-                  <span class="product-price">{product.price}원</span>
-                  <div class="product-seller">
-                    <img class="product-avatar" src="images/icons/avatar.png" />
-                    <span>{product.seller}</span>
+                {/* <Link className="product-link" to={"/products/" + index}> */}
+                {/* ES6 문법 Template Literal 활용시 */}
+                <Link className="product-link" to={`/products/${index}`}>
+                  <div>
+                    <img class="product-image" src={product.imageUrl} />
                   </div>
-                </div>
+                  <div class="product-contents">
+                    <span class="product-name">{product.name}</span>
+                    <span class="product-price">{product.price}원</span>
+                    <div class="product-seller">
+                      <img
+                        class="product-avatar"
+                        src="images/icons/avatar.png"
+                      />
+                      <span>{product.seller}</span>
+                    </div>
+                  </div>
+                </Link>
               </div>
             );
           })}
