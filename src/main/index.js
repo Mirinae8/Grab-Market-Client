@@ -26,47 +26,39 @@ function MainPage() {
   // 리액트 기본 규칙 : 복수의 태그는 리턴 불가능 하나의 div로 씌워져서 해결
   return (
     <div>
-      <div id="header">
-        <div id="header-area">
-          <img src="images/icons/logo.png" />
-        </div>
+      <div id="banner">
+        {/* <!-- 이미지는 주로 width와 맞춰 해상도를 정함 --> */}
+        <img src="images/banners/banner1.png" />
       </div>
-      <div id="body">
-        <div id="banner">
-          {/* <!-- 이미지는 주로 width와 맞춰 해상도를 정함 --> */}
-          <img src="images/banners/banner1.png" />
-        </div>
-        <h1>판매되는 상품들</h1>
-        <div id="product-list">
-          {/* 기존에 innerHTML로 했던 걸 리액트에서는 jsx 문법으로*/}
-          {products.map(function (product, index) {
-            return (
-              // 리액트에서는 태그안에 class 대신 className을 넣는다 (jsx 문법 관련?)
-              <div className="product-card">
-                {/* <Link className="product-link" to={"/products/" + index}> */}
-                {/* ES6 문법 Template Literal 활용시 */}
-                <Link className="product-link" to={`/products/${index}`}>
-                  <div>
-                    <img className="product-image" src={product.imageUrl} />
+      <h1>판매되는 상품들</h1>
+      <div id="product-list">
+        {/* 기존에 innerHTML로 했던 걸 리액트에서는 jsx 문법으로*/}
+        {products.map(function (product, index) {
+          return (
+            // 리액트에서는 태그안에 class 대신 className을 넣는다 (jsx 문법 관련?)
+            <div className="product-card">
+              {/* <Link className="product-link" to={"/products/" + index}> */}
+              {/* ES6 문법 Template Literal 활용시 */}
+              <Link className="product-link" to={`/products/${product.id}`}>
+                <div>
+                  <img className="product-image" src={product.imageUrl} />
+                </div>
+                <div className="product-contents">
+                  <span className="product-name">{product.name}</span>
+                  <span className="product-price">{product.price}원</span>
+                  <div className="product-seller">
+                    <img
+                      className="product-avatar"
+                      src="images/icons/avatar.png"
+                    />
+                    <span>{product.seller}</span>
                   </div>
-                  <div className="product-contents">
-                    <span className="product-name">{product.name}</span>
-                    <span className="product-price">{product.price}원</span>
-                    <div className="product-seller">
-                      <img
-                        className="product-avatar"
-                        src="images/icons/avatar.png"
-                      />
-                      <span>{product.seller}</span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
-        </div>
+                </div>
+              </Link>
+            </div>
+          );
+        })}
       </div>
-      <div id="footer"></div>
     </div>
   );
 }
