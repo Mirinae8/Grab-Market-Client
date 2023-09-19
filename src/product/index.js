@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import "./index.css";
 
 function ProductPage() {
   // productPage()를 호출하는 Route의 경로에 넣은 파라미터를 받아옴 (:id)
@@ -42,6 +43,7 @@ function ProductPage() {
       <div id="contents-box">
         <div id="name">{product.name}</div>
         <div id="price">{product.price}</div>
+        <div id="createdAt">2023년 9월 19일</div>
         <div id="description">{product.description}</div>
       </div>
     </div>
