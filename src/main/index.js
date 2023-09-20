@@ -12,7 +12,10 @@ function MainPage() {
   React.useEffect(function () {
     axios
       .get(
-        "https://8580b8ce-a931-470f-a899-f4e0d0090da4.mock.pstmn.io/products"
+        // 기존 postman 의 mock서버
+        // "https://8580b8ce-a931-470f-a899-f4e0d0090da4.mock.pstmn.io/products"
+        // express 서버에서 만든 json으로 변경
+        "http://localhost:8080/products"
       )
       .then(function (result) {
         const products = result.data.products;
