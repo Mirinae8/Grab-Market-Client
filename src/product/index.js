@@ -13,11 +13,11 @@ function ProductPage() {
   const [product, setProducts] = useState(null);
   useEffect(function () {
     axios
-      .get(
-        `https://8580b8ce-a931-470f-a899-f4e0d0090da4.mock.pstmn.io/products/${id}`
-      )
+      // express 서버 주소로 변경
+      .get(`http://localhost:8080/products/${id}`)
       .then(function (result) {
-        setProducts(result.data);
+        // express 서버에서는 product 객체에 담아서 결과를 넘겨줬기 때문에 data안에 product 객체를 찾아야 한다
+        setProducts(result.data.product);
       })
       .catch(function (error) {
         console.error(error);

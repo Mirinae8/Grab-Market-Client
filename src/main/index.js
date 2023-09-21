@@ -3,6 +3,11 @@ import "./index.css";
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+// 기능 확장
+dayjs.extend(relativeTime);
 
 function MainPage() {
   // state 사용위해 products는 배열이라 파라미터로 빈배열을 넣음
@@ -49,12 +54,18 @@ function MainPage() {
                 <div className="product-contents">
                   <span className="product-name">{product.name}</span>
                   <span className="product-price">{product.price}원</span>
-                  <div className="product-seller">
-                    <img
-                      className="product-avatar"
-                      src="images/icons/avatar.png"
-                    />
-                    <span>{product.seller}</span>
+                  <div className="product-footer">
+                    <div className="product-seller">
+                      <img
+                        className="product-avatar"
+                        src="images/icons/avatar.png"
+                      />
+                      <span>{product.seller}</span>
+                    </div>
+                    {/* 업로드 날짜를 보기 편하게 하기 위해 */}
+                    <span className="prodcut-date">
+                      {dayjs(product.createdAt).fromNow()}
+                    </span>
                   </div>
                 </div>
               </Link>
