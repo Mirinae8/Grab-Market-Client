@@ -47,3 +47,11 @@
   border: none;
   margin-top: 16px;
 }
+
+#upload-img {
+  width: 200px;
+  height: 200px;
+  margin-left: 16px;
+  /* 이미지의 크기 설정시 가로 세로 비율 맞추려면 */
+  object-fit: contain;
+}

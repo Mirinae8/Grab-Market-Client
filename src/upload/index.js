@@ -1,12 +1,26 @@
-import { Button, Divider, Form, Input, InputNumber } from "antd";
+import { Button, Divider, Form, Input, InputNumber, Upload } from "antd";
 import "./index.css";
+import { useState } from "react";
 
 // index는 해당 파일에서 시작이되는 지점이라는 의미
 function UploadPage() {
+  const [imageUrl, setImageUrl] = useState(null);
   // 람다 방식으로 함수 정의 (익명함수 방식과 동일)
   const onSubmit = (values) => {
     // 최종적으로 해당 데이터가 서버로 가야함 (현재는 임시)
     console.log(values);
+  };
+  const onChageImage = (info) => {
+    // 업로드의 상태에 따라 분기처리
+    if (info.file.status === "uploading") {
+      // 파일을 업로드해서 네트워크 요청이 끝날때 까지
+      return;
+    }
+    if (info.file.status === "done") {
+      const response = info.file.response;
+      const imageUrl = response.imageUrl;
+      setImageUrl(imageUrl);
+    }
   };
   return (
     <div id="upload-container">
@@ -15,11 +29,34 @@ function UploadPage() {
           name="upload"
           label={<div className="upload-label">상품 사진</div>}
         >
-          {/* 서버 개발 전까지는 임시로 */}
-          <div id="upload-img-placeholder">
-            <img src="/images/icons/camera.png" />
-            <span>이미지를 업로드해주세요.</span>
-          </div>
+          {/* multipart/form-data 은 키 밸류 형태로 데이터 전송 (naem이 키)*/}
+          <Upload
+            name="image"
+            action="http://localhost:8080/image"
+            listType="picture"
+            // showUploadList 기본값이면 업로드한 이미지 말고 다른걸 보여줌???
+            showUploadList={false}
+            onChange={
+              // 업로드 클릭, 작업중, 결과를 받았을때 호출됨
+              // 이미지 처리 로직 (이미지를 서버에 전달해서 경로를 받은 후 처리 구현)
+              onChageImage
+            }
+          >
+            {
+              // 삼항연산자 (imageUrl이 있으면..)
+              imageUrl ? (
+                <img
+                  id="upload-img"
+                  src={`http://localhost:8080/${imageUrl}`}
+                />
+              ) : (
+                <div id="upload-img-placeholder">
+                  <img src="/images/icons/camera.png" />
+                  <span>이미지를 업로드해주세요.</span>
+                </div>
+              )
+            }
+          </Upload>
         </Form.Item>
         {/* 선을 그어줌 (영역을 나눠줌) */}
         <Divider />
