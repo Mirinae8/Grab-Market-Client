@@ -5,6 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { API_URL } from "../config/constants";
 
 // 기능 확장
 dayjs.extend(relativeTime);
@@ -20,7 +21,7 @@ function MainPage() {
         // 기존 postman 의 mock서버
         // "https://8580b8ce-a931-470f-a899-f4e0d0090da4.mock.pstmn.io/products"
         // express 서버에서 만든 json으로 변경
-        "http://localhost:8080/products"
+        `${API_URL}/products`
       )
       .then(function (result) {
         const products = result.data.products;
@@ -38,7 +39,7 @@ function MainPage() {
         {/* <!-- 이미지는 주로 width와 맞춰 해상도를 정함 --> */}
         <img src="images/banners/banner1.png" />
       </div>
-      <h1>판매되는 상품들</h1>
+      <h1 id="product-headline">판매되는 상품들</h1>
       <div id="product-list">
         {/* 기존에 innerHTML로 했던 걸 리액트에서는 jsx 문법으로*/}
         {products.map(function (product, index) {
@@ -49,7 +50,10 @@ function MainPage() {
               {/* ES6 문법 Template Literal 활용시 */}
               <Link className="product-link" to={`/products/${product.id}`}>
                 <div>
-                  <img className="product-image" src={product.imageUrl} />
+                  <img
+                    className="product-image"
+                    src={`${API_URL}/${product.imageUrl}`}
+                  />
                 </div>
                 <div className="product-contents">
                   <span className="product-name">{product.name}</span>

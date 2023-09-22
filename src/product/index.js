@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./index.css";
+import { API_URL } from "../config/constants";
+import dayjs from "dayjs";
 
 function ProductPage() {
   // productPage()를 호출하는 Route의 경로에 넣은 파라미터를 받아옴 (:id)
@@ -14,7 +16,7 @@ function ProductPage() {
   useEffect(function () {
     axios
       // express 서버 주소로 변경
-      .get(`http://localhost:8080/products/${id}`)
+      .get(`${API_URL}/products/${id}`)
       .then(function (result) {
         // express 서버에서는 product 객체에 담아서 결과를 넘겨줬기 때문에 data안에 product 객체를 찾아야 한다
         setProducts(result.data.product);
@@ -34,7 +36,7 @@ function ProductPage() {
     <div>
       <div id="image-box">
         {/* 경로의 맨 앞 /는 현재 프로젝트 기준이라는 의미 (절대경로)*/}
-        <img src={"/" + product.imageUrl} />
+        <img src={`${API_URL}/${product.imageUrl}`} />
       </div>
       <div id="profile-box">
         <img src="/images/icons/avatar.png" />
@@ -43,8 +45,15 @@ function ProductPage() {
       <div id="contents-box">
         <div id="name">{product.name}</div>
         <div id="price">{product.price}</div>
-        <div id="createdAt">2023년 9월 19일</div>
-        <div id="description">{product.description}</div>
+        {/* 날짜를 원하는 형식으로 보여주기 위해 dayjs API 사용 */}
+        <div id="createdAt">
+          {dayjs(product.createdAt).format("YYYY년 MM월 DD일")}
+        </div>
+        {/* div 태크 안에 줄바꿈 텍스트가 들어가도 줄바꿈이 되지 않음 */}
+        {/* <pre> 태그는 줄바꿈 그대로 보여주는 역할 */}
+        <div>
+          <pre id="description">{product.description}</pre>
+        </div>
       </div>
     </div>
   );

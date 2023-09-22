@@ -1,14 +1,49 @@
-import { Button, Divider, Form, Input, InputNumber, Upload } from "antd";
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  InputNumber,
+  Upload,
+  message,
+} from "antd";
 import "./index.css";
 import { useState } from "react";
+import { API_URL } from "../config/constants";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 // index는 해당 파일에서 시작이되는 지점이라는 의미
 function UploadPage() {
+  // 라이프 사이클 최상단에 적는것들 (리액트 hook)
   const [imageUrl, setImageUrl] = useState(null);
+  // 페이지 이동위해
+  const history = useHistory();
   // 람다 방식으로 함수 정의 (익명함수 방식과 동일)
   const onSubmit = (values) => {
     // 최종적으로 해당 데이터가 서버로 가야함 (현재는 임시)
-    console.log(values);
+    // console.log(values);
+    // post() 매개변수로 주소와 보낼 데이터
+    axios
+      .post(`${API_URL}/products`, {
+        name: values.name,
+        description: values.description,
+        seller: values.seller,
+        // 가격은 숫자 타입이므로 형변환 필요
+        price: parseInt(values.price),
+        imageUrl: imageUrl,
+      })
+      .then((result) => {
+        console.log(result);
+        // .push 는 뒤로가기 눌렀을때 이전 페이지로
+        // .replace는 이전 페이지 기록이 사라짐
+        history.replace("/");
+      })
+      .catch((error) => {
+        console.error(error);
+        // 에러 메시지 띄우기 (AntD 컴포넌트 사용)
+        message.error(`에러가 발생했습니다. ${error.message}`);
+      });
   };
   const onChageImage = (info) => {
     // 업로드의 상태에 따라 분기처리
@@ -32,7 +67,7 @@ function UploadPage() {
           {/* multipart/form-data 은 키 밸류 형태로 데이터 전송 (naem이 키)*/}
           <Upload
             name="image"
-            action="http://localhost:8080/image"
+            action={`${API_URL}/image`}
             listType="picture"
             // showUploadList 기본값이면 업로드한 이미지 말고 다른걸 보여줌???
             showUploadList={false}
@@ -45,10 +80,7 @@ function UploadPage() {
             {
               // 삼항연산자 (imageUrl이 있으면..)
               imageUrl ? (
-                <img
-                  id="upload-img"
-                  src={`http://localhost:8080/${imageUrl}`}
-                />
+                <img id="upload-img" src={`${API_URL}/${imageUrl}`} />
               ) : (
                 <div id="upload-img-placeholder">
                   <img src="/images/icons/camera.png" />
