@@ -51,6 +51,7 @@ function MainPage() {
     <div>
       {/* 이미지가 슬라이드 되도록 하는 컴포넌트 유형을 캐러셀이라고 한다 */}
       {/* autoplay 는 자동 넘김 프롭  "=" 명시 없으면 기본 true*/}
+      {/* antd에서 캐러셀 컴포넌트에 기본적으로 클래스명을 부여해준다 (개발자 도구로 확인가능) */}
       <Carousel autoplay autoplaySpeed={3000}>
         {banners.map((banners, index) => {
           return (

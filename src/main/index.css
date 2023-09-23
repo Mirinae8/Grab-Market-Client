@@ -5,12 +5,14 @@
 } */
 
 #banner {
-  height: 300px;
+  /* 반응형 처리 */
+  max-height: 300px;
 }
 
 #banner > img {
   width: 100%;
-  height: 300px;
+  /* 반응형 처리 */
+  max-height: 300px;
 }
 
 #body > h1 {
