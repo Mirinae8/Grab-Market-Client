@@ -74,6 +74,11 @@ function MainPage() {
           return (
             // 리액트에서는 태그안에 class 대신 className을 넣는다 (jsx 문법 관련?)
             <div className="product-card">
+              {
+                // 판매된 상품 흐리게 처리
+                // and 조건이라 앞이 트루면 뒤쪽이 동작
+                product.soldout === 1 && <div className="product-blur" />
+              }
               {/* <Link className="product-link" to={"/products/" + index}> */}
               {/* ES6 문법 Template Literal 활용시 */}
               <Link className="product-link" to={`/products/${product.id}`}>

@@ -36,6 +36,22 @@
   border-radius: 12px;
   /* 테두리가 둥글어져 테두리를 이미지가 덮게되어 해결하려면 */
   overflow: hidden;
+  /* 자식의 앱솔루트 포지션과 연관되어 사용 */
+  position: relative;
+}
+
+.product-blur {
+  /* 앱솔루트는 주변 태그 상관없이 부모(포지션이 relative) 기준으로 위치 조정 */
+  position: absolute;
+  /* 네가지 면 전부 차지하도록 */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* 뒤에 두자리는 투명도 (16진수표현) */
+  background-color: #ffffffaa;
+  /* 뒤에 있는 태그들이 가려져 클릭이 되지 않으므로 클릭 무시처리 */
+  pointer-events: none;
 }
 
 .product-image {
